@@ -3,9 +3,8 @@
 // Número do WhatsApp (DDI + DDD + número, só dígitos)
 const WHATSAPP_NUMBER = "5583991192672";
 
-// E-mail que recebe os cadastros da lista de espera (via FormSubmit.co).
-// No primeiro envio, o FormSubmit manda um e-mail de ativação: é só clicar em "Activate".
-const FORM_EMAIL = "tenasdesign@gmail.com";
+// Os cadastros da lista de espera chegam em tenasdesign@gmail.com via Web3Forms.
+// A chave (access_key) fica no formulário de contato.html.
 const WHATSAPP_DEFAULT_MSG = "Olá! Vim pelo site da Tenas Digital e quero saber mais sobre os serviços.";
 
 function waLink(message) {
@@ -52,19 +51,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Formulário da lista de espera: envio normal para o FormSubmit, que manda os dados
+  // Formulário da lista de espera: envio para o Web3Forms, que manda os dados
   // para o e-mail da Tenas. Depois do envio, a pessoa volta para a página /obrigado deste site.
   const form = document.getElementById("contact-form");
   if (form) {
-    form.action = "https://formsubmit.co/" + FORM_EMAIL;
-    const next = form.querySelector('input[name="_next"]');
-    if (next && /^https?:/.test(location.origin)) next.value = location.origin + "/obrigado";
+    const redirect = form.querySelector('input[name="redirect"]');
+    if (redirect && /^https?:/.test(location.origin)) redirect.value = location.origin + "/obrigado";
     form.addEventListener("submit", function () {
       const nome = form.querySelector('[name="nome"]').value;
       const prof = form.querySelector('[name="profissao"]').value;
-      form.querySelector('input[name="_subject"]').value = "Nova inscrição na lista de espera: " + nome + " (" + prof + ")";
-      const btn = form.querySelector('button[type="submit"]');
-      btn.disabled = true;
+      form.querySelector('input[name="subject"]').value = "Nova inscrição na lista de espera: " + nome + " (" + prof + ")";
+      form.querySelector('button[type="submit"]').disabled = true;
       document.getElementById("form-status").textContent = "Enviando…";
     });
   }

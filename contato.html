@@ -89,11 +89,11 @@
       <div class="form-card">
         <h2 class="h-md">Entrar na lista de espera</h2>
         <p class="small">Leva menos de 1 minuto. Respondemos em até 2 dias úteis.</p>
-        <form id="contact-form" class="form" action="https://formsubmit.co/tenasdesign@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="Nova inscrição na lista de espera (site Tenas Digital)">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://tenas-digital.vercel.app/obrigado">
+        <form id="contact-form" class="form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="0bc7af04-bc5d-4ac0-97bc-e48879034a24">
+          <input type="hidden" name="subject" value="Nova inscrição na lista de espera (site Tenas Digital)">
+          <input type="hidden" name="from_name" value="Site Tenas Digital">
+          <input type="hidden" name="redirect" value="https://tenas-digital.vercel.app/obrigado">
           <div class="field">
             <label for="f-nome">Nome</label>
             <input id="f-nome" name="nome" type="text" placeholder="Ana Silva" autocomplete="name" required>
@@ -141,7 +141,7 @@
             <label for="f-msg">Mensagem (opcional)</label>
             <textarea id="f-msg" name="mensagem" placeholder="Conte o que você gostaria de melhorar no seu perfil."></textarea>
           </div>
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form__actions">
             <button class="btn btn--dark" type="submit">Entrar na lista de espera <span class="arrow">→</span></button>
             <p id="form-status" class="form__status" aria-live="polite"></p>
