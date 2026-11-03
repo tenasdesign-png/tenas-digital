@@ -52,36 +52,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Formulário da lista de espera: envia os dados para o e-mail da Tenas
+  // Formulário da lista de espera: envio normal para o FormSubmit, que manda os dados
+  // para o e-mail da Tenas. Depois do envio, a pessoa volta para a página /obrigado deste site.
   const form = document.getElementById("contact-form");
   if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (!form.reportValidity()) return;
-      const status = document.getElementById("form-status");
+    form.action = "https://formsubmit.co/" + FORM_EMAIL;
+    const next = form.querySelector('input[name="_next"]');
+    if (next && /^https?:/.test(location.origin)) next.value = location.origin + "/obrigado";
+    form.addEventListener("submit", function () {
+      const nome = form.querySelector('[name="nome"]').value;
+      const prof = form.querySelector('[name="profissao"]').value;
+      form.querySelector('input[name="_subject"]').value = "Nova inscrição na lista de espera: " + nome + " (" + prof + ")";
       const btn = form.querySelector('button[type="submit"]');
-      const data = Object.fromEntries(new FormData(form).entries());
-      if (data._honey) return;
-      data._subject = "Nova inscrição na lista de espera: " + data.nome + " (" + data.profissao + ")";
-      data._template = "table";
       btn.disabled = true;
-      status.textContent = "Enviando…";
-      fetch("https://formsubmit.co/ajax/" + FORM_EMAIL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify(data)
-      })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-        .then(function () {
-          form.hidden = true;
-          document.getElementById("form-success").hidden = false;
-        })
-        .catch(function () {
-          btn.disabled = false;
-          status.innerHTML = 'Não conseguimos enviar agora. Tente de novo ou <a data-fallback href="' +
-            waLink("Olá! Quero entrar na lista de espera. Sou " + data.nome + ", " + data.profissao + ".") +
-            '" target="_blank" rel="noopener">fale pelo WhatsApp</a>.';
-        });
+      document.getElementById("form-status").textContent = "Enviando…";
     });
   }
 
