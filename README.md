@@ -8,3 +8,4 @@ Site estático (HTML, CSS e JS), publicado no Vercel.
 - `artigos.html` — lista de artigos
 - `contato.html` — lista de espera (formulário envia para o e-mail via FormSubmit)
 - `assets/main.js` — número do WhatsApp e e-mail do formulário ficam no topo do arquivo
+- `biblioteca/` — página de vendas da Biblioteca de Conteúdos para a Saúde (checkout na Kiwify), com `termos/` e `privacidade/`
