@@ -51,6 +51,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Interesse já escolhido conforme o botão clicado (?interesse=gestao ou ?interesse=consultoria)
+  const interesse = document.getElementById("f-int");
+  if (interesse) {
+    const escolha = new URLSearchParams(location.search).get("interesse");
+    const mapa = {
+      gestao: "Gerenciamento completo de Instagram",
+      consultoria: "Consultoria Método Autoridade na Saúde"
+    };
+    if (escolha && mapa[escolha]) interesse.value = mapa[escolha];
+  }
+
   // Formulário da lista de espera: envio para o Web3Forms, que manda os dados
   // para o e-mail da Tenas. Depois do envio, a pessoa volta para a página /obrigado deste site.
   const form = document.getElementById("contact-form");
