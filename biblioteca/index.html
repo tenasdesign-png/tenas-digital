@@ -350,5 +350,13 @@ src="https://www.facebook.com/tr?id=1456388222555867&ev=PageView&noscript=1"
 </div>
 
 </div>
+<script>
+/* Repassa UTMs/src da URL da página para o link do checkout Kiwify */
+(function(){
+var q=location.search.slice(1);if(!q)return;
+document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(function(a){
+a.href+=(a.href.indexOf('?')>-1?'&':'?')+q;});
+})();
+</script>
 </body>
 </html>
